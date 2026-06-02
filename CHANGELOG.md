@@ -17,3 +17,5 @@
   -> [상세](docs/changelog/2026-06-02_frontend-channel-structure.md)
 - 한글 Conventional Commit 제목 규칙 추가
   -> [상세](docs/changelog/2026-06-02_commit-message-conventions.md)
+- macOS 메타데이터 파일 제외 규칙 추가
+  -> [상세](docs/changelog/2026-06-03_ignore-macos-metadata.md)
