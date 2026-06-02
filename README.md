@@ -82,6 +82,7 @@
 - [앱인토스 미니앱 주제 선정](docs/앱인토스_미니앱_주제_선정.md)
 - [MVP UI 보드 HTML](docs/design/act-ad-mvp-ui-board/index.html)
 - [MVP UI 보드 미리보기](docs/design/act-ad-mvp-ui-board/preview.png)
+- [변경 이력](CHANGELOG.md)
 
 ## 일정
 
