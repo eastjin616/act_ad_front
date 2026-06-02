@@ -13,4 +13,5 @@
 
 - `main`, `develop`, `feature/*`, `fix/*` 브랜치 운영 규칙 명시
   -> [상세](docs/changelog/2026-06-02_branch-conventions.md)
-
+- 프론트엔드를 일반 웹과 앱인토스 미니앱이 핵심 기능을 공유하는 모노레포로 구체화
+  -> [상세](docs/changelog/2026-06-02_frontend-channel-structure.md)
