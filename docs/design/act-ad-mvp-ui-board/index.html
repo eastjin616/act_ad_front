@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>act_ad MVP UI Board</title>
+  <style>
+    :root {
+      --ink: #171b21;
+      --muted: #69717e;
+      --line: #e7eaf0;
+      --surface: #ffffff;
+      --canvas: #f3f5f8;
+      --brand: #6f4cff;
+      --brand-dark: #5133d9;
+      --brand-soft: #eeeaff;
+      --green: #1f9d69;
+      --green-soft: #e8f8f1;
+      --orange: #e78022;
+      --orange-soft: #fff5e8;
+      --blue: #3c72e8;
+      --blue-soft: #eef4ff;
+      --shadow: 0 20px 45px rgba(30, 36, 50, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #e9edf3;
+      font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .board {
+      width: 1880px;
+      min-height: 1560px;
+      margin: 0 auto;
+      padding: 58px 64px 84px;
+      background:
+        radial-gradient(circle at 82% 7%, rgba(111, 76, 255, 0.11), transparent 26%),
+        radial-gradient(circle at 8% 22%, rgba(31, 157, 105, 0.08), transparent 22%),
+        #f7f8fb;
+    }
+
+    .board-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .brand-lockup { display: flex; align-items: center; gap: 14px; }
+
+    .brand-mark {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      color: #fff;
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--brand), #947bff);
+      box-shadow: 0 12px 28px rgba(111, 76, 255, 0.3);
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    h1 { margin: 0; font-size: 34px; letter-spacing: -1.6px; }
+    h2 { margin: 0; font-size: 24px; letter-spacing: -1px; }
+    h3 { margin: 0; font-size: 18px; letter-spacing: -0.5px; }
+    p { margin: 0; }
+
+    .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; }
+    .meta { color: var(--muted); font-size: 13px; text-align: right; line-height: 1.6; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 40px 0 18px;
+    }
+
+    .section-description { margin-top: 6px; color: var(--muted); font-size: 14px; }
+    .screen-row { display: flex; align-items: flex-start; gap: 28px; }
+
+    .phone-wrap { width: 386px; }
+    .screen-label { margin: 0 0 10px 4px; color: #535c69; font-size: 13px; font-weight: 800; }
+
+    .phone {
+      width: 386px;
+      height: 836px;
+      overflow: hidden;
+      border: 7px solid #1d2025;
+      border-radius: 40px;
+      background: var(--canvas);
+      box-shadow: var(--shadow);
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 30px;
+      padding: 0 22px;
+      color: #242932;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 792px;
+      background: var(--canvas);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+      padding: 14px 18px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-title { font-size: 20px; font-weight: 900; letter-spacing: -0.8px; }
+    .topbar-small { font-size: 17px; font-weight: 850; letter-spacing: -0.5px; }
+    .icon { color: #535c69; font-size: 20px; font-weight: 800; }
+    .topbar-actions { display: flex; gap: 12px; }
+
+    .scroll {
+      flex: 1;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    .hero {
+      padding: 18px;
+      border-radius: 20px;
+      color: #fff;
+      background: linear-gradient(135deg, #6f4cff, #9679ff);
+      box-shadow: 0 13px 24px rgba(111, 76, 255, 0.2);
+    }
+
+    .eyebrow {
+      color: rgba(255,255,255,0.78);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin-top: 8px;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.22;
+    }
+
+    .hero-foot { display: flex; justify-content: space-between; margin-top: 18px; color: #e9e4ff; font-size: 12px; }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: #8a929e;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .chips { display: flex; gap: 7px; margin: 14px 0; }
+
+    .chip {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #69717e;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .chip.active { color: #fff; border-color: var(--brand); background: var(--brand); }
+    .section-title { margin: 14px 0 10px; font-size: 16px; font-weight: 900; letter-spacing: -0.4px; }
+
+    .job-card {
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #fff;
+      box-shadow: 0 5px 13px rgba(31, 37, 48, 0.04);
+    }
+
+    .job-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .company { color: var(--brand-dark); font-size: 11px; font-weight: 900; }
+    .job-title { margin-top: 5px; font-size: 15px; font-weight: 900; letter-spacing: -0.45px; line-height: 1.35; }
+    .bookmark { color: #a0a7b1; font-size: 18px; }
+    .job-meta { display: flex; gap: 7px; margin-top: 12px; flex-wrap: wrap; }
+
+    .tag {
+      padding: 5px 7px;
+      border-radius: 7px;
+      color: #68717d;
+      background: #f4f6f8;
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .tag.purple { color: var(--brand-dark); background: var(--brand-soft); }
+    .tag.green { color: #167349; background: var(--green-soft); }
+    .tag.orange { color: #a95d13; background: var(--orange-soft); }
+
+    .job-foot { display: flex; justify-content: space-between; margin-top: 13px; color: #8a929e; font-size: 11px; }
+    .strong { color: #333b46; font-weight: 800; }
+
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 11px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .nav-item { color: #a0a7b1; text-align: center; font-size: 10px; font-weight: 700; }
+    .nav-symbol { display: block; margin-bottom: 4px; font-size: 18px; }
+    .nav-item.active { color: var(--brand); }
+
+    .cover {
+      padding: 20px 18px 17px;
+      color: #fff;
+      background: linear-gradient(140deg, #2c2450, #6f4cff);
+    }
+
+    .cover-back { color: #e0d8ff; font-size: 19px; }
+    .cover-title { margin-top: 30px; font-size: 23px; font-weight: 900; line-height: 1.25; letter-spacing: -0.8px; }
+    .cover-company { margin-top: 9px; color: #d8cffd; font-size: 12px; font-weight: 800; }
+    .cover-tags { display: flex; gap: 6px; margin-top: 15px; }
+    .cover-tag { padding: 5px 7px; border-radius: 6px; background: rgba(255,255,255,0.14); font-size: 10px; font-weight: 800; }
+
+    .detail-block {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 11px;
+    }
+
+    .detail-cell {
+      padding: 10px;
+      border-radius: 10px;
+      background: #f7f8fa;
+    }
+
+    .detail-label { color: #9199a5; font-size: 10px; font-weight: 750; }
+    .detail-value { margin-top: 4px; color: #353c46; font-size: 12px; font-weight: 850; }
+    .detail-copy { margin-top: 8px; color: #59616c; font-size: 12px; line-height: 1.55; }
+
+    .sticky-cta { padding: 12px 16px 14px; border-top: 1px solid var(--line); background: #fff; }
+    .button { padding: 14px; border-radius: 13px; color: #fff; background: var(--brand); text-align: center; font-size: 14px; font-weight: 900; }
+    .button.secondary { color: var(--brand-dark); background: var(--brand-soft); }
+    .button.small { padding: 10px 13px; border-radius: 10px; font-size: 12px; }
+
+    .form-card {
+      margin-top: 12px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .form-label { margin-top: 12px; color: #626b78; font-size: 12px; font-weight: 850; }
+    .form-label:first-child { margin-top: 0; }
+
+    .field {
+      margin-top: 7px;
+      padding: 12px;
+      border: 1px solid #dfe3e9;
+      border-radius: 10px;
+      color: #4f5865;
+      background: #fff;
+      font-size: 12px;
+    }
+
+    .field.large { height: 83px; color: #949ca6; line-height: 1.4; }
+    .notice { margin-top: 12px; padding: 11px; border-radius: 10px; color: #526071; background: #f5f7fa; font-size: 11px; line-height: 1.5; }
+
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 17px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .avatar {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(145deg, #ffb067, #ef7e5e);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .profile-name { font-size: 17px; font-weight: 900; }
+    .profile-role { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .progress { margin-top: 8px; height: 7px; overflow: hidden; border-radius: 99px; background: #e8ebef; }
+    .progress > span { display: block; width: 72%; height: 100%; border-radius: 99px; background: var(--brand); }
+
+    .stat-row { display: flex; gap: 8px; margin-top: 12px; }
+    .stat { flex: 1; padding: 12px 8px; border: 1px solid var(--line); border-radius: 11px; background: #fff; text-align: center; }
+    .stat-num { font-size: 18px; font-weight: 900; }
+    .stat-label { margin-top: 4px; color: #8b939e; font-size: 10px; font-weight: 750; }
+
+    .portfolio {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .thumb { width: 54px; height: 54px; border-radius: 10px; background: linear-gradient(135deg, #293446, #7f91ae); }
+    .portfolio-title { font-size: 13px; font-weight: 900; }
+    .portfolio-sub { margin-top: 5px; color: #858e9a; font-size: 11px; }
+
+    .web-wrap { width: 100%; margin-top: 26px; }
+    .browser-shell {
+      overflow: hidden;
+      border: 1px solid #dde2e9;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 15px;
+      border-bottom: 1px solid var(--line);
+      background: #f7f8fa;
+    }
+
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #d4d9e0; }
+    .web-app { display: flex; min-height: 720px; }
+
+    .sidebar {
+      width: 230px;
+      padding: 20px 14px;
+      color: #d7dcff;
+      background: #20243a;
+    }
+
+    .side-brand { padding: 0 10px 18px; color: #fff; font-size: 21px; font-weight: 900; letter-spacing: -0.7px; }
+    .side-item { margin-top: 3px; padding: 11px 10px; border-radius: 10px; font-size: 13px; font-weight: 750; }
+    .side-item.active { color: #fff; background: rgba(134, 111, 255, 0.35); }
+    .side-divider { height: 1px; margin: 18px 9px; background: rgba(255,255,255,0.1); }
+    .side-caption { padding: 0 10px 5px; color: #8891b3; font-size: 10px; font-weight: 900; letter-spacing: 0.7px; }
+
+    .dashboard { flex: 1; padding: 25px 28px; background: #f6f7fa; }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; }
+    .dash-title { font-size: 25px; font-weight: 900; letter-spacing: -0.9px; }
+    .dash-sub { margin-top: 7px; color: var(--muted); font-size: 13px; }
+    .dash-actions { display: flex; align-items: center; gap: 10px; }
+    .admin-avatar { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 50%; color: #fff; background: #343a58; font-size: 11px; font-weight: 900; }
+
+    .summary-row { display: flex; gap: 12px; margin-top: 22px; }
+    .summary-card { flex: 1; padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: #fff; }
+    .summary-label { color: #7d8692; font-size: 12px; font-weight: 750; }
+    .summary-value { margin-top: 7px; font-size: 25px; font-weight: 900; }
+    .summary-note { margin-top: 6px; color: var(--green); font-size: 11px; font-weight: 800; }
+
+    .dash-grid { display: grid; grid-template-columns: 1.45fr 0.9fr; gap: 14px; margin-top: 15px; }
+    .panel { padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; }
+    .panel-title { font-size: 15px; font-weight: 900; }
+    .panel-link { color: var(--brand); font-size: 11px; font-weight: 850; }
+
+    .team-list { margin-top: 10px; }
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 0;
+      border-top: 1px solid #eff1f4;
+    }
+
+    .team:first-child { border-top: 0; }
+    .team-icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 10px; font-size: 15px; }
+    .team-icon.purple { color: var(--brand-dark); background: var(--brand-soft); }
+    .team-icon.green { color: #167349; background: var(--green-soft); }
+    .team-icon.orange { color: #a95d13; background: var(--orange-soft); }
+    .team-icon.blue { color: #285abb; background: var(--blue-soft); }
+    .team-main { flex: 1; }
+    .team-name { font-size: 13px; font-weight: 900; }
+    .team-sub { margin-top: 4px; color: #8b939e; font-size: 11px; }
+    .team-status { padding: 5px 7px; border-radius: 7px; color: #167349; background: var(--green-soft); font-size: 10px; font-weight: 850; }
+    .team-status.open { color: #a95d13; background: var(--orange-soft); }
+
+    .timeline { margin-top: 14px; }
+    .timeline-item { position: relative; padding: 0 0 18px 19px; border-left: 2px solid #e2e5ea; }
+    .timeline-item:last-child { padding-bottom: 0; border-left-color: transparent; }
+    .timeline-item::before { position: absolute; top: 1px; left: -6px; width: 10px; height: 10px; border-radius: 50%; background: var(--brand); content: ""; }
+    .timeline-date { color: #8c95a0; font-size: 10px; font-weight: 800; }
+    .timeline-title { margin-top: 3px; font-size: 12px; font-weight: 850; }
+
+    .table-panel { margin-top: 14px; padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    table { width: 100%; margin-top: 11px; border-collapse: collapse; font-size: 12px; }
+    th { padding: 9px; color: #89919d; background: #f7f8fa; text-align: left; font-size: 10px; font-weight: 900; }
+    td { padding: 11px 9px; border-top: 1px solid #eef0f3; color: #505966; }
+    .applicant { color: #2d3440; font-weight: 900; }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="board-header">
+      <div class="brand-lockup">
+        <div class="brand-mark">A</div>
+        <div>
+          <h1>act_ad MVP UI Board</h1>
+          <p class="subtitle">영상 콘텐츠 제작 인력 모집 · 앱인토스 미니앱 + 제작사 관리 웹</p>
+        </div>
+      </div>
+      <p class="meta">Concept v0.1<br />Mobile-first recruitment workflow</p>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Apps in Toss Miniapp</h2>
+          <p class="section-description">배우와 스태프가 모바일에서 공고를 탐색하고 지원하는 핵심 흐름</p>
+        </div>
+      </div>
+
+      <div class="screen-row">
+        <div class="phone-wrap">
+          <p class="screen-label">01 · 공고 탐색</p>
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span>● ● ●</span></div>
+            <div class="app">
+              <div class="topbar">
+                <span class="topbar-title">act_ad</span>
+                <span class="topbar-actions"><span class="icon">⌕</span><span class="icon">♧</span></span>
+              </div>
+              <div class="scroll">
+                <div class="hero">
+                  <p class="eyebrow">이번 주 추천 프로젝트</p>
+                  <p class="hero-title">당신의 다음<br />작품을 만나보세요</p>
+                  <div class="hero-foot"><span>새 공고 24개</span><span>전체 보기 →</span></div>
+                </div>
+                <div class="search">⌕ 작품명, 제작사, 역할 검색</div>
+                <div class="chips">
+                  <span class="chip active">전체</span><span class="chip">배우</span><span class="chip">촬영</span><span class="chip">미술</span>
+                </div>
+                <p class="section-title">마감 임박 공고</p>
+                <article class="job-card">
+                  <div class="job-head">
+                    <div><p class="company">HASH ENTERTAINMENT</p><p class="job-title">웹드라마 카지노<br />20대 배우 모집</p></div><span class="bookmark">♡</span>
+                  </div>
+                  <div class="job-meta"><span class="tag purple">배우</span><span class="tag">서울</span><span class="tag green">D-3</span></div>
+                  <div class="job-foot"><span>3개월 프로젝트</span><span class="strong">회차당 협의</span></div>
+                </article>
+                <article class="job-card">
+                  <div class="job-head">
+                    <div><p class="company">STUDIO FRAME</p><p class="job-title">브랜드 숏폼 시리즈<br />촬영팀 모집</p></div><span class="bookmark">♡</span>
+                  </div>
+                  <div class="job-meta"><span class="tag purple">촬영팀</span><span class="tag">경기</span><span class="tag orange">D-5</span></div>
+                  <div class="job-foot"><span>8월 촬영 예정</span><span class="strong">예산 1,200만</span></div>
+                </article>
+              </div>
+              <nav class="bottom-nav">
+                <span class="nav-item active"><b class="nav-symbol">⌂</b>홈</span>
+                <span class="nav-item"><b class="nav-symbol">⌕</b>탐색</span>
+                <span class="nav-item"><b class="nav-symbol">♡</b>저장</span>
+                <span class="nav-item"><b class="nav-symbol">○</b>프로필</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-wrap">
+          <p class="screen-label">02 · 프로젝트 상세</p>
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span>● ● ●</span></div>
+            <div class="app">
+              <div class="cover">
+                <p class="cover-back">←</p>
+                <p class="cover-title">웹드라마 카지노<br />20대 배우 모집</p>
+                <p class="cover-company">HASH ENTERTAINMENT</p>
+                <div class="cover-tags"><span class="cover-tag">배우</span><span class="cover-tag">서울</span><span class="cover-tag">D-3</span></div>
+              </div>
+              <div class="scroll" style="padding:0;">
+                <section class="detail-block">
+                  <h3>프로젝트 정보</h3>
+                  <div class="detail-grid">
+                    <div class="detail-cell"><p class="detail-label">제작 기간</p><p class="detail-value">3개월</p></div>
+                    <div class="detail-cell"><p class="detail-label">제작 예산</p><p class="detail-value">3,000만 원</p></div>
+                    <div class="detail-cell"><p class="detail-label">촬영 지역</p><p class="detail-value">서울 · 경기</p></div>
+                    <div class="detail-cell"><p class="detail-label">지원 마감</p><p class="detail-value">6월 8일</p></div>
+                  </div>
+                </section>
+                <section class="detail-block">
+                  <h3>모집 역할</h3>
+                  <p class="detail-copy">주연급 20대 배우 2명 · 조연 배우 3명<br />자연스러운 생활 연기가 가능한 분</p>
+                </section>
+                <section class="detail-block">
+                  <h3>제작 진행 현황</h3>
+                  <div class="job-meta"><span class="tag green">제작팀 구성 완료</span><span class="tag orange">촬영팀 모집 중</span></div>
+                  <p class="detail-copy">테스트 촬영 일정과 미술팀 준비 현황은 지원 후 안내됩니다.</p>
+                </section>
+              </div>
+              <div class="sticky-cta"><div class="button">이 공고에 지원하기</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-wrap">
+          <p class="screen-label">03 · 간편 지원</p>
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span>● ● ●</span></div>
+            <div class="app">
+              <div class="topbar"><span class="icon">←</span><span class="topbar-small">지원서 작성</span><span class="icon">⋯</span></div>
+              <div class="scroll">
+                <article class="job-card" style="margin-top:0;">
+                  <p class="company">HASH ENTERTAINMENT</p>
+                  <p class="job-title">웹드라마 카지노 · 20대 배우 모집</p>
+                  <div class="job-meta"><span class="tag purple">배우</span><span class="tag">지원 마감 D-3</span></div>
+                </article>
+                <div class="form-card">
+                  <p class="form-label">지원할 프로필</p>
+                  <div class="field">배우 프로필 · 서동진　›</div>
+                  <p class="form-label">희망 역할</p>
+                  <div class="field">주연 배우　⌄</div>
+                  <p class="form-label">한 줄 소개</p>
+                  <div class="field large">제작사에 전달할 간단한 소개를 입력하세요.</div>
+                  <p class="form-label">포트폴리오</p>
+                  <div class="field">대표 필모그래피 3개 첨부됨　✓</div>
+                </div>
+                <p class="notice">지원 시 등록한 프로필과 필모그래피가 제작사에 전달됩니다. 제출 전 내용을 확인해 주세요.</p>
+              </div>
+              <div class="sticky-cta"><div class="button">지원서 제출하기</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-wrap">
+          <p class="screen-label">04 · 내 프로필</p>
+          <div class="phone">
+            <div class="status-bar"><span>9:41</span><span>● ● ●</span></div>
+            <div class="app">
+              <div class="topbar"><span class="topbar-small">내 프로필</span><span class="icon">⚙</span></div>
+              <div class="profile-head">
+                <div class="avatar">서</div>
+                <div style="flex:1;">
+                  <p class="profile-name">서동진</p>
+                  <p class="profile-role">배우 · 서울</p>
+                  <div class="progress"><span></span></div>
+                </div>
+              </div>
+              <div class="scroll">
+                <div class="stat-row">
+                  <div class="stat"><p class="stat-num">3</p><p class="stat-label">필모그래피</p></div>
+                  <div class="stat"><p class="stat-num">8</p><p class="stat-label">지원</p></div>
+                  <div class="stat"><p class="stat-num">4</p><p class="stat-label">저장</p></div>
+                </div>
+                <p class="section-title">대표 필모그래피</p>
+                <div class="portfolio"><div class="thumb"></div><div><p class="portfolio-title">단편영화 · 여름의 끝</p><p class="portfolio-sub">주연 · 2025</p></div></div>
+                <div class="portfolio"><div class="thumb" style="background:linear-gradient(135deg,#6f4cff,#dba9ff);"></div><div><p class="portfolio-title">브랜드 숏폼 · 오늘의 장면</p><p class="portfolio-sub">출연 · 2026</p></div></div>
+                <p class="section-title">프로필 완성도 72%</p>
+                <article class="job-card">
+                  <p class="job-title">프로필을 보완하면<br />더 잘 맞는 공고를 추천해요</p>
+                  <div class="job-meta"><span class="tag purple">AI 추천 · 이후 검토</span></div>
+                </article>
+              </div>
+              <nav class="bottom-nav">
+                <span class="nav-item"><b class="nav-symbol">⌂</b>홈</span>
+                <span class="nav-item"><b class="nav-symbol">⌕</b>탐색</span>
+                <span class="nav-item"><b class="nav-symbol">♡</b>저장</span>
+                <span class="nav-item active"><b class="nav-symbol">○</b>프로필</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="web-wrap">
+      <div class="section-head">
+        <div>
+          <h2>Production Admin Web</h2>
+          <p class="section-description">엔터테인먼트 회사와 제작사가 프로젝트, 팀별 모집, 지원자를 관리하는 화면</p>
+        </div>
+      </div>
+
+      <div class="browser-shell">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="web-app">
+          <aside class="sidebar">
+            <p class="side-brand">act_ad</p>
+            <p class="side-item active">▦　대시보드</p>
+            <p class="side-item">▤　프로젝트</p>
+            <p class="side-item">♙　지원자 관리</p>
+            <div class="side-divider"></div>
+            <p class="side-caption">PRE-PRODUCTION</p>
+            <p class="side-item">✓　준비 체크리스트</p>
+            <p class="side-item">◷　촬영 일정</p>
+            <p class="side-item">⚙　설정</p>
+          </aside>
+
+          <div class="dashboard">
+            <div class="dash-top">
+              <div><p class="dash-title">웹드라마 카지노</p><p class="dash-sub">HASH Entertainment · 2026.06.01 - 2026.08.31</p></div>
+              <div class="dash-actions"><div class="button small">+ 새 공고 등록</div><div class="admin-avatar">HS</div></div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-card"><p class="summary-label">모집 중인 포지션</p><p class="summary-value">6</p><p class="summary-note">이번 주 +2</p></div>
+              <div class="summary-card"><p class="summary-label">전체 지원자</p><p class="summary-value">48</p><p class="summary-note">신규 지원 12명</p></div>
+              <div class="summary-card"><p class="summary-label">팀 구성 완료율</p><p class="summary-value">67%</p><p class="summary-note">4개 팀 완료</p></div>
+              <div class="summary-card"><p class="summary-label">남은 준비 일정</p><p class="summary-value">9</p><p class="summary-note">다음 일정 D-4</p></div>
+            </div>
+
+            <div class="dash-grid">
+              <section class="panel">
+                <div class="panel-head"><p class="panel-title">팀별 모집 현황</p><p class="panel-link">전체 보기 →</p></div>
+                <div class="team-list">
+                  <div class="team"><div class="team-icon purple">♙</div><div class="team-main"><p class="team-name">배우 · 출연진</p><p class="team-sub">지원자 24명 · 검토 중 8명</p></div><span class="team-status open">모집 중</span></div>
+                  <div class="team"><div class="team-icon green">◉</div><div class="team-main"><p class="team-name">촬영팀</p><p class="team-sub">전창용 외 3명 · 장비 확인 필요</p></div><span class="team-status">구성 완료</span></div>
+                  <div class="team"><div class="team-icon orange">✦</div><div class="team-main"><p class="team-name">미술팀</p><p class="team-sub">이호석 외 1명 · 세트 리스트 준비 중</p></div><span class="team-status">구성 완료</span></div>
+                  <div class="team"><div class="team-icon blue">▤</div><div class="team-main"><p class="team-name">제작팀</p><p class="team-sub">서동진 외 2명 · 촬영 일정 조율 중</p></div><span class="team-status">구성 완료</span></div>
+                </div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-head"><p class="panel-title">프리프로덕션 일정</p><p class="panel-link">일정 관리 →</p></div>
+                <div class="timeline">
+                  <div class="timeline-item"><p class="timeline-date">6월 8일</p><p class="timeline-title">배우 지원 마감</p></div>
+                  <div class="timeline-item"><p class="timeline-date">6월 12일</p><p class="timeline-title">카메라 장비 리스트 확정</p></div>
+                  <div class="timeline-item"><p class="timeline-date">6월 18일</p><p class="timeline-title">테스트 촬영</p></div>
+                  <div class="timeline-item"><p class="timeline-date">6월 25일</p><p class="timeline-title">미술팀 세트 검수</p></div>
+                </div>
+              </section>
+            </div>
+
+            <section class="table-panel">
+              <div class="panel-head"><p class="panel-title">최근 지원자</p><p class="panel-link">지원자 관리 →</p></div>
+              <table>
+                <thead><tr><th>지원자</th><th>지원 포지션</th><th>경력</th><th>지원일</th><th>상태</th></tr></thead>
+                <tbody>
+                  <tr><td class="applicant">김민서</td><td>주연 배우</td><td>필모 5개</td><td>오늘 14:20</td><td><span class="tag purple">검토 중</span></td></tr>
+                  <tr><td class="applicant">박지훈</td><td>조명팀</td><td>경력 4년</td><td>오늘 11:08</td><td><span class="tag green">인터뷰 예정</span></td></tr>
+                  <tr><td class="applicant">이서연</td><td>조연 배우</td><td>필모 3개</td><td>어제 18:42</td><td><span class="tag orange">신규</span></td></tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

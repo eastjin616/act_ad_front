@@ -80,6 +80,8 @@
 
 - [앱인토스 미니앱 개발 준비안](docs/앱인토스_미니앱_개발_준비안.md)
 - [앱인토스 미니앱 주제 선정](docs/앱인토스_미니앱_주제_선정.md)
+- [MVP UI 보드 HTML](docs/design/act-ad-mvp-ui-board/index.html)
+- [MVP UI 보드 미리보기](docs/design/act-ad-mvp-ui-board/preview.png)
 
 ## 일정
 
