@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-06-06
+
+### Added
+
+- 프론트엔드 앱과 공통 코드 폴더 스켈레톤 추가
+  -> [상세](docs/changelog/2026-06-06_frontend-folder-skeleton.md)
+- 프론트엔드 폴더별 역할 가이드 추가
+  -> [상세](docs/frontend-folder-guide.md)
+
+### Changed
+
+- 공통 코드 최상위 디렉터리를 `common/`으로 통일
+  -> [상세](docs/changelog/2026-06-06_frontend-folder-skeleton.md)
+
 ## 2026-06-02
 
 ### Added

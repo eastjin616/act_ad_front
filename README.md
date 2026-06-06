@@ -83,9 +83,9 @@
 ```text
 act_ad_front/
   apps/
-    miniapp/       # 앱인토스 WebView 미니앱
-    web/           # 일반 웹 서비스
-  packages/
+    miniapp/       # 앱 프론트
+    web/           # 관리자 웹
+  common/
     ui/            # 공통 UI 컴포넌트
     features/      # 공고, 프로필, 지원 등 공통 기능
     api-client/    # 공통 API 호출
@@ -109,6 +109,7 @@ act_ad_front/
 
 - [앱인토스 미니앱 개발 준비안](docs/앱인토스_미니앱_개발_준비안.md)
 - [앱인토스 미니앱 주제 선정](docs/앱인토스_미니앱_주제_선정.md)
+- [프론트엔드 폴더 역할 가이드](docs/frontend-folder-guide.md)
 - [MVP UI 보드 HTML](docs/design/act-ad-mvp-ui-board/index.html)
 - [MVP UI 보드 미리보기](docs/design/act-ad-mvp-ui-board/preview.png)
 - [변경 이력](CHANGELOG.md)
