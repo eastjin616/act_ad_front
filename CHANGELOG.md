@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-07-05
+
+### Added
+
+- `apps/web`에 Next.js, React, TypeScript 기본 설정 추가
+- 루트 npm workspace와 웹 개발용 `setup:web`, `dev:web`, `build:web`, `typecheck:web` 스크립트 추가
+- 앱인토스 미니앱은 보류하고 일반 웹을 먼저 개발한다는 안내 추가
+
 ## 2026-06-06
 
 ### Added

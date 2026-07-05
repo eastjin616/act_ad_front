@@ -118,6 +118,25 @@ act_ad_front/
 
 - 목표: 2026년 7월 31일까지 앱인토스 검수 요청 제출
 
+## 개발 시작
+
+현재는 일반 웹을 먼저 개발한다. 앱인토스 미니앱은 웹 MVP 흐름과 API 계약이 정리된 뒤 시작한다.
+
+프론트엔드 의존성은 Python `requirements.txt`가 아니라 npm `package.json`과 `package-lock.json`으로 관리한다.
+
+```bash
+npm run setup:web
+npm run dev:web
+```
+
+웹 개발 위치:
+
+```text
+apps/web/
+```
+
+웹 화면 구현을 시작할 때 `apps/web/app/` 아래에 Next.js App Router 파일을 추가한다.
+
 ## 브랜치 운영 규칙
 
 | 브랜치 | 용도 |
