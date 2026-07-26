@@ -1,13 +1,6 @@
 {
   "name": "act-ad-front",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
   "scripts": {
-    "setup:web": "npm install",
-    "dev:web": "npm --workspace @act-ad/web run dev",
-    "build:web": "npm --workspace @act-ad/web run build",
-    "typecheck:web": "npm --workspace @act-ad/web run typecheck"
   }
 }
