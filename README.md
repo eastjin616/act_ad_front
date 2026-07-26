@@ -106,3 +106,37 @@ git switch develop
 git pull origin develop
 git switch -c feature/project-card-list
 ```
+## 커밋 메시지 규칙
+
+커밋 제목은 작업 종류와 범위를 바로 알아볼 수 있도록 아래 형식으로 작성한다.
+
+```text
+<type>(<scope>): <한글 설명>
+```
+
+### Type
+
+| Type | 용도 |
+|---|---|
+| `feat` | 신규 기능 |
+| `fix` | 버그 수정 |
+| `refactor` | 동작 변경 없는 구조 개선 |
+| `docs` | 문서 변경 |
+| `test` | 테스트 추가 및 수정 |
+| `chore` | 설정, 저장소 관리 등 기타 작업 |
+
+### Scope 예시
+
+- `api`
+- `auth`
+- `db`
+- `repo`
+- `changelog`
+
+### 커밋 제목 예시
+
+```text
+feat(api): 프로젝트 공고 조회 API 추가
+fix(auth): 만료된 토큰 갱신 오류 수정
+refactor(db): 지원 상태 조회 로직 정리
+docs(readme): 백엔드 실행 방법 추가
