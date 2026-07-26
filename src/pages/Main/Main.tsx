@@ -30,11 +30,12 @@ export default function Main() {
       if (nextIndex === currentIndex) return;
 
       isMoving = true;
+      mainElement.classList.add('is-scrolling');
 
       const startPosition = mainElement.scrollTop;
       const targetPosition = sections[nextIndex].offsetTop;
       const startTime = performance.now();
-      const animationDuration = 720;
+      const animationDuration = 900;
 
       const animateScroll = (currentTime: number) => {
         const progress = Math.min((currentTime - startTime) / animationDuration, 1);
@@ -48,6 +49,7 @@ export default function Main() {
           animationFrame = window.requestAnimationFrame(animateScroll);
         } else {
           isMoving = false;
+          mainElement.classList.remove('is-scrolling');
         }
       };
 
@@ -68,6 +70,7 @@ export default function Main() {
     return () => {
       mainElement.removeEventListener('wheel', handleWheel);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      mainElement.classList.remove('is-scrolling');
     };
   }, []);
 

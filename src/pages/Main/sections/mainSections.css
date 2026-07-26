@@ -6,6 +6,10 @@
   scroll-snap-type: y mandatory;
 }
 
+.page-main.is-scrolling {
+  scroll-snap-type: none;
+}
+
 .main-section {
   position: relative;
   box-sizing: border-box;
